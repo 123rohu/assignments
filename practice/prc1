@@ -1,0 +1,4 @@
+<php
+$string = "This is a string";
+echo strlen($string);
+?>

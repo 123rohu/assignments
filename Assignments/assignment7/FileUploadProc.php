@@ -34,14 +34,14 @@ return $this->moveFile();
 
 function moveFile(){
 
-if(move_uploaded_file($_FILES["selectedFile"]["tmp_name"], "files/".$this->fileName)){
+//if(move_uploaded_file($_FILES["selectedFile"]["tmp_name"], "files/".$this->fileName)){
 
 $crud = new Crud();
 return $crud->addFile();
   
-}else{
-return "There was a problem uploading your file. Please try again.";
-}
+//}else{
+//return "There was a problem uploading your file. Please try again.";
+//}
 }
 
 } // class Upload

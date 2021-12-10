@@ -42,14 +42,14 @@ class Crud extends PdoMethods{
 		$pdo = new PdoMethods();
 
 		/* HERE I CREATE THE SQL STATEMENT I AM BINDING THE PARAMETERS */
-		$sql = "INSERT INTO file_names (file_name, file_path, entered_file_name) VALUES (:fname, :lname, :eyecolor)";
+		$sql = "INSERT INTO file_names (file_name, file_path, entered_file_name) VALUES (:fname, :fpath, :enteredfname)";
 
 			 
 	    /* THESE BINDINGS ARE LATER INJECTED INTO THE SQL STATEMENT THIS PREVENTS AGAIN SQL INJECTIONS */
 	    $bindings = [
 			[':fname',$_FILES["selectedFile"]["name"],'str'],
-			[':lname',"files/".$_FILES["selectedFile"]["name"],'str'],
-			[':eyecolor',$_POST['enteredFileName'],'str'],
+			[':fpath',"files/".$_FILES["selectedFile"]["name"],'str'],
+			[':enteredfname',$_POST['enteredFileName'],'str'],
 		];
 
 		/* I AM CALLING THE OTHERBINDED METHOD FROM MY PDO CLASS */
@@ -73,13 +73,13 @@ class Crud extends PdoMethods{
 				$pdo = new PdoMethods();
 
 				/* HERE I CREATE THE SQL STATEMENT I AM BINDING THE PARAMETERS */
-				$sql = "UPDATE file_names SET file_name = :fname, file_path = :lname, entered_file_name = :eyecolor WHERE id = :id";
+				$sql = "UPDATE file_names SET file_name = :fname, file_path = :fpath, entered_file_name = :enteredfname WHERE id = :id";
 
 				//THE ^^ WAS USED TO MAKE EACH ITEM UNIQUE BY COMBINING FNAME WITH THEY ID
 				$bindings = [
 					[':fname', $post["fname^^{$id}"], 'str'],
-					[':lname', $post["lname^^{$id}"], 'str'],
-					[':eyecolor', $post["color^^{$id}"], 'str'],
+					[':fpath', $post["fpath^^{$id}"], 'str'],
+					[':enteredfname', $post["color^^{$id}"], 'str'],
 					[':id', $id, 'str']
 				];
 
@@ -157,9 +157,9 @@ class Crud extends PdoMethods{
 		foreach ($records as $row){
 			$output .= "<tr><td><input type='text' class='form-control' name='fname^^{$row['id']}' value='{$row['file_name']}'></td>";
 
-			$output .= "<td><input type='text' class='form-control' name='lname^^{$row['id']}' value='{$row['file_path']}'></td>";
+			$output .= "<td><input type='text' class='form-control' name='fpath^^{$row['id']}' value='{$row['file_path']}'></td>";
 
-			$output .= "<td><input type='text' class='form-control' name='color^^{$row['id']}' value='{$row['entered_file_name']}'></td>";
+			$output .= "<td><input type='text' class='form-control' name='enteredfname^^{$row['id']}' value='{$row['entered_file_name']}'></td>";
 
 			$output .= "<td><input type='checkbox' name='inputDeleteChk[]' value='{$row['id']}'></td></tr>";
 		}
